@@ -8,7 +8,8 @@
 				echo('
 					<li><a href="aggiungiutente.php">Aggiungi utente</a></li>					
 					<li><a href="gestoreut.php">Gestore Utenti</a></li>
-					<li><a href="generale.php">Pannello utenti</a></li>');
+					<li><a href="generale.php">Pannello utenti</a></li>
+					<li><a href="publicpost.php">Pubblica post</a></li>');
 		?>
    </ul>
 </div>

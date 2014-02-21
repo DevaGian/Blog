@@ -36,7 +36,8 @@
    					 	<li class="dropdown-header">Amministratore</li>						
 						<li><a href="aggiungiutente.php">Aggingi Utente</a></li>
 						<li><a href="gestoreut.php">Gestisci utenti</a></li>
-						<li><a href="generale.php">Pannello utenti</a></li>');
+						<li><a href="generale.php">Pannello utenti</a></li>
+						<li><a href="publicpost.php">Pubblica post</a></li>');
 				echo("</ul>");
 				echo("</li>");
 			

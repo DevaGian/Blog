@@ -10,9 +10,7 @@
 		$_SESSION['active']=true;
 	}
 	$pos = trova_mysql($_SESSION['username'], "Username", "utente");	
-	$row=getInfo($pos, 'utente', 'ID');
-	$user=$row['Username'];	
-	$access=$row['UltimoAccesso'];	
+	$row=getInfo($pos, 'utente', 'ID');		
 	$admin=$row['Admin'];
 ?>
 
@@ -23,7 +21,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Page</title>
+    <title>Pubblica</title>
 
     
 </head>
@@ -31,6 +29,14 @@
 <header><?php include "Header.php"; ?> </header>
 </body>
 <div class="row" id="sotto">
+<?php 
+		include "menu.php";
+		if(isset($_SESSION['active']) && $admin==1)
+			include "admin/public.php";
+		else
+			include "noaut.php";
+?>
+
 </div>
 <footer class="footerhome" role="contentinfo"><?php include "footer.php"?></footer>
 </html>
