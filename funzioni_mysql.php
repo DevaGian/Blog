@@ -119,4 +119,14 @@
 		$sql->bindParam(':reg',$date);
 		$sql->execute();		
 	}
+	function remove_mysql($el, $table, $column)
+	{
+		$db=new mysqli('localhost','Gianluca','prove','test');		
+		$sql="DELETE
+			FROM `".$table."`
+		WHERE `".$column."` = ".$el;
+		if(!$db->query($sql))
+			die("Query error: ".$db->error);
+		$db->close();
+	}
 ?>

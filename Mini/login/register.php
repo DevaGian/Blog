@@ -25,6 +25,12 @@ function add()
 					$file=$_FILES['img'];
 					if($file['error'] == UPLOAD_ERR_OK and is_uploaded_file($file['tmp_name']))
 					{
+						list($width, $height, $type, $attr) = getimagesize($file['tmp_name']);
+						if($type!=1 and $type!=2 and $type!=3)
+						{							
+							remove_mysql($pos, 'utente', "ID");
+							return "<span class='label label-warning'>Il formato del file non è valido (JPG-PNG-GIF)</span>";
+						}
 						strtok($file['name'],".");
 						$path="imm/".strtolower($_POST['username']).".".strtok(".");
 						move_uploaded_file($file['tmp_name'],$path);						
@@ -42,9 +48,9 @@ function add()
 				aggiunginfo($_POST['nome'],$_POST['cognome'],$born,$informazioni,$path,$pos);
 				return "<span class='label label-success'>Congratulazioni, sei ora utente di this forum</span>";
 			}
-			elseif($mex=="mail")
-				return "<span class='label label-warning'>Indirizzo e-mail già presente nel nostro archivio</span>";
-			else
+			elseif($mex=="mail")							
+				return "<span class='label label-warning'>Indirizzo e-mail già presente nel nostro archivio</span>";			
+			else			
 				return "<span class='label label-warning'>Il nome utente non è disponibile</span>";
 			
 		}
