@@ -19,22 +19,22 @@
 <head>
 <?php include "_header.php"; ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Cambia la tua password</title>
+<title>Gestore post</title>
 </head>
-
 <body>
-<header><?php include "Header.php"; ?></header>
-<div class="row" style="margin-top:5%">
-	<?php	
-			if(isset($_SESSION['active']))
-			{
-				include "menu.php";
-				include "funzioniut/changepsw.php";
-			}
-			else
-				include "noaut.php";
-	?>
-    
+
+<header><?php include "Header.php" ?></header>
+<div class="row" id="sotto">
+<?php
+	if(isset($_SESSION['active']) && $admin==1)
+	{
+		include "menu.php";
+		include "admin/gestorepost.php";
+	}
+	else
+		include "noaut.php";
+	
+?>
 </div>
 <footer class="bs-docs-footer" role="contentinfo"><?php include "footer.php"?></footer>
 </body>

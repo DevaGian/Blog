@@ -11,8 +11,7 @@
 		$pos = trova_mysql($_SESSION['username'], "Username", "utente");	
 		$row=getInfo($pos, 'utente', 'ID');		
 		$admin=$row['Admin'];
-	}
-	
+	}	
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +33,8 @@
 		if(isset($_SESSION['active']) && (isset($admin) && $admin==1))
 		{			
 				include "menu.php";
-				include "admin/public.php";			
+				include "admin/modpost.php";
+							
 		}
 		else
 			include "noaut.php";

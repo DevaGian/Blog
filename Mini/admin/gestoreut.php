@@ -28,7 +28,7 @@
 			$utnt=$_POST['modifica'];		
 			$type="hidden";
 			$_SESSION['utnt']=$utnt;
-			$cambiautn='<a href="gestoreut.php"<button type="button" onclick="destroy()" class="btn btn-danger" href="gestoreut.php">Cambia utente</button></a>';
+			$cambiautn='<br><br><br><a href="gestoreut.php"<button type="button" onclick="destroy()" class="btn btn-danger" href="gestoreut.php">Cambia utente</button></a>';
 		}
 		else
 		{

@@ -1,31 +1,36 @@
-<?php
-
-	function pubblica()
+<?php	
+	if(isset($_POST['contenuto']) && isset($_POST['titolo']))
 	{
-		if(isset($_POST['titolo']) && isset($_POST['contenuto']))
-		{			
-			if(!empty($_POST['titolo']) && !empty($_POST['contenuto']))
-			{	
-				$pos = trova_mysql($_SESSION['username'], "Username", "utente");			
-				$col="mysql:host=localhost;dbname=test";
-				try
-					{$db=new PDO($col,'Gianluca','prove');}
-				catch(PDOException $pdoerror)
-					{die("<script type='text/javascript'>alert('Errore nel connettersi al database, riprova.\n".$pdoerror);}					
-				$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$sql=$db->prepare("INSERT INTO `post`(`id_post`, `id_autore`, `titolo`, `contenuto`, `data`) VALUES (NULL, ".$pos.", :titolo, :contenuto, NULL)");				
-				$sql->bindParam(':titolo',$_POST['titolo'],PDO::PARAM_STR, 255);
-				$sql->bindParam(':contenuto',$_POST['contenuto']);				
-				$sql->execute();		
-				return "<span class='label label-success'>Post pubblicato con successo</span>";
+		$id_post=$_POST['newid'];
+		$titolo=$_POST['titolo'];
+		$contenuto=$_POST['contenuto'];		
+	}
+	else
+	{		
+		$id_post=$_POST['id'];
+		$info = getInfo($id_post,'post','id_post');
+		$titolo = $info['titolo'];
+		$contenuto = $info['contenuto'];
+	}
+	function modpost($id_post)
+	{
+		if(isset($_POST['contenuto']) && isset($_POST['titolo']))
+		{
+			if(!empty($_POST['contenuto']) && !empty($_POST['titolo']))
+			{				
+				sostituisci_mysql($id_post,$_POST['contenuto'],'contenuto','post','id_post');
+				sostituisci_mysql($id_post,$_POST['titolo'],'titolo','post','id_post');
+				return "<span class='label label-success'>Post editato con successo</span>";				
 			}
+			else
+				return "<span class='label label-warning'>Compilare tutti i campi</span>";
 		}
 	}
-
 ?>
+
 <div class="col-sm-6 col-md-6">
 	<div class="jumbotron">    	
-        <h2 align="center">Publica un post</h2>
+        <h2 align="center"><?=$titolo?></h2>
         <div class="btn-group">
         	<button type="button" class="btn btn-default" onClick="left()"><span class="glyphicon glyphicon-align-left"></span></button>
             <button type="button" class="btn btn-default" onClick="center()"><span class="glyphicon glyphicon-align-center"></span></button>
@@ -58,12 +63,13 @@
         </div>
         <br><br>
         <form class="form-signin" role="form" action="#" name="pubblica" class="form-control" method="post">
-        <input type="text" name="titolo" required="" placeholder="Titolo"  class="form-control"/>
+        <input type="hidden" value="<?=$id_post?>" name="newid"/>
+        <input type="text" name="titolo" required="" placeholder="Titolo"  class="form-control" value="<?=$titolo?>"/>
         <br>
-        <textarea name="contenuto" required="" placeholder="Inserisci il contenuto" class="form-control" rows="5"></textarea>
+        <textarea name="contenuto" required="" placeholder="Inserisci il contenuto" class="form-control" rows="5"><?=$contenuto?></textarea>
         <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Pubblica</button>
-        <p align="center"><?php echo(pubblica())?></p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Modifica</button>
+        <p align="center"><h3><?php echo(modpost($id_post))?></h3></p>
         </form>              
     </div>
 </div>
@@ -152,13 +158,4 @@ function insertAtCursor(myField, myValue) {
 	{
 		insertAtCursor(document.pubblica.contenuto,"<td></td");		
 	}
-
-
-
-
-
-
-
-
-
 </script>
