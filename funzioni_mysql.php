@@ -119,6 +119,24 @@
 		$sql->bindParam(':reg',$date);
 		$sql->execute();		
 	}
+	function postcomment($titolo,$contenuto,$idpost,$autore)
+	{
+		$idautore=trova_mysql($autore,'Username','utente');
+		//$idautore=$info['ID'];
+		$col="mysql:host=localhost;dbname:test";
+		try
+			{$db=new PDO($col,'Gianluca','prove');}
+		catch(PDOException $pdoerror)
+			{die("<script type='text/javascript'>alert('Errore nel connettersi al database, riprova.\n".$pdoerror);}
+		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$sql=$db->prepare("INSERT INTO `test`.`commenti` (`id_autore`,`id_post`,`titolo`,`contenuto`) VALUES ( :autore, :post, :titolo, :contenuto);");
+		$sql->bindParam(':autore',$idautore,PDO::PARAM_INT);
+		$sql->bindParam(':post',$idpost,PDO::PARAM_INT);
+		$sql->bindParam(':titolo',$titolo,PDO::PARAM_STR,255);
+		$sql->bindParam(':contenuto',$contenuto);
+		$sql->execute();
+		return $db->errorInfo();
+	}
 	function remove_mysql($el, $table, $column)
 	{
 		$db=new mysqli('localhost','Gianluca','prove','test');		

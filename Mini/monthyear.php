@@ -15,6 +15,7 @@
 <html>
 <head>
 <?php
+	$mesi=array("Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre");
 	if( !isset($_GET['month']) or !isset($_GET['year']))
 	{
 		echo('<script type="text/javascript">alert("Link non valido, verrai reindirizzato alla pagina principale.")</script>');
@@ -36,6 +37,9 @@
 <div class="col-sm-2 col-md-2">
 </div>
 <div class="col-sm-8 col-md-8">
+<div class="jumbotron" style="width:80%">
+	<h3 align="center">Post di <?=$mesi[(int)($_GET['month'])-1]?></h3>
+</div>
 	<?php 
 		if(isset($_GET['month']) && isset($_GET['year']))
 		{
@@ -50,12 +54,13 @@
 					if(strtok("-") == $_GET['month'])
 					{
 						$k+=1;
-						$post='<table class="table-bordered" width="80%"><thead><caption>'.$row['titolo'].'</caption></thead><tbody>';
+						$post='<table class="table-bordered" width="80%"><thead><caption><h1>'.$row['titolo'].'</h1></caption></thead><tbody>';
 						$post.='<tr><td align="right">'.$row['data'].'</td></tr>';
 						$post.='<tr><td>'.$row['contenuto'].'</td></tr>';
 						$info=getInfo($row['id_autore'],'utente','ID');
 						$autore=$info['Username'];
-						$post.='<tr><td align="right">Written by '.$autore.'</td></tr></tbody></table>';
+						$post.='<tr><td align="right">Written by '.$autore.'</td></tr>';
+						$post.='<tr><td align="center"><a href="viewpost.php?id_post='.$row['id_post'].'">Link articolo</a></td></tr></tbody></table>';
 						echo($post);
 					}
 				}			

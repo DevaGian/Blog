@@ -9,8 +9,6 @@
 		$_SESSION['username']=$_COOKIE['utente'];
 		$_SESSION['active']=true;
 	}
-	
-	
 ?>
 
 <!DOCTYPE html>

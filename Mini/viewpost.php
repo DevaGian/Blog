@@ -41,7 +41,7 @@
 		$row=getInfo($_GET['id_post'], 'post', 'id_post');
 		if(isset($row['id_post']))
 		{
-			$post='<table class="table-bordered" width="80%"><thead><caption>'.$row['titolo'].'</caption></thead><tbody>';
+			$post='<table class="table-bordered" width="80%"><thead><caption><h1>'.$row['titolo'].'</h1></caption></thead><tbody>';
 			$post.='<tr><td align="right">'.$row['data'].'</td></tr>';
 			$post.='<tr><td>'.$row['contenuto'].'</td></tr>';
 			$info=getInfo($row['id_autore'],'utente','ID');
